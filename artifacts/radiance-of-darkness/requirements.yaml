@@ -1,0 +1,38 @@
+packages:
+  "framer-motion": "For cinematic page transitions, smooth scroll reveals, and interactive hover animations crucial for the dark fantasy aesthetic."
+  "clsx": "Utility for constructing className strings conditionally."
+  "tailwind-merge": "Utility to safely merge Tailwind CSS classes."
+
+images:
+  - path: "artifacts/radiance-of-darkness/public/images/hero-bg.png"
+    description: "Dark fantasy cinematic landscape, deep midnight blue and dark violet skies, mysterious gothic ruins, glowing golden ethereal dust particles, moody atmospheric lighting, highly detailed, 8k resolution"
+    aspect_ratio: "16:9"
+  - path: "artifacts/radiance-of-darkness/public/images/cover-1.png"
+    description: "Manga cover illustration, dark fantasy style, a mysterious cloaked figure holding a glowing golden artifact, deep shadows, purple and black color palette, epic composition"
+    aspect_ratio: "3:4"
+  - path: "artifacts/radiance-of-darkness/public/images/cover-2.png"
+    description: "Manga cover illustration, dramatic dark fantasy, two conflicting magical forces, one dark void and one radiant gold, swirling together, intense cinematic lighting"
+    aspect_ratio: "3:4"
+  - path: "artifacts/radiance-of-darkness/public/images/cover-3.png"
+    description: "Manga cover illustration, dark gothic aesthetic, a shattered glowing crown resting on dark obsidian stones, subtle violet mist, highly artistic"
+    aspect_ratio: "3:4"
+  - path: "artifacts/radiance-of-darkness/public/images/concept-1.png"
+    description: "Concept art, dark fantasy environment, ancient imposing dark citadel with subtle glowing golden runes on the walls, misty atmosphere, midnight blue tones"
+    aspect_ratio: "16:9"
+  - path: "artifacts/radiance-of-darkness/public/images/concept-2.png"
+    description: "Concept art, ethereal glowing dark forest, twisted dark trees, luminescent golden flora, mysterious shadows, deep purple undertones"
+    aspect_ratio: "16:9"
+  - path: "artifacts/radiance-of-darkness/public/images/char-1.png"
+    description: "Character concept art, dark fantasy warrior, ornate obsidian armor with subtle gold filigree, stoic expression, dark magical aura, cinematic studio lighting"
+    aspect_ratio: "3:4"
+  - path: "artifacts/radiance-of-darkness/public/images/char-2.png"
+    description: "Character concept art, mysterious sorcerer in flowing dark violet robes, wielding a staff emitting golden light, surrounded by shadow particles, epic"
+    aspect_ratio: "3:4"
+  - path: "artifacts/radiance-of-darkness/public/images/logo.png"
+    description: "Minimalist elegant logo mark, an abstract alchemy symbol merging a dark crescent moon with a radiant golden sunburst, clean vector style on dark background"
+    aspect_ratio: "1:1"
+
+notes:
+  - Mocking data fetching hooks using TanStack Query to simulate real API interactions.
+  - Generating static SVG placeholders for manga pages to keep the reader fully functional without requiring 20+ separate image files.
+  - Multi-language support implemented via React Context.

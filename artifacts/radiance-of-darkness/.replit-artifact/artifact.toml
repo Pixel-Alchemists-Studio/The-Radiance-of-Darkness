@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "The Radiance of Darkness"
+version = "1.0.0"
+id = "artifacts/radiance-of-darkness"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25388
+
+[services.development]
+run = "pnpm --filter @workspace/radiance-of-darkness run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/radiance-of-darkness", "run", "build" ]
+publicDir = "artifacts/radiance-of-darkness/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25388"
+BASE_PATH = "/"

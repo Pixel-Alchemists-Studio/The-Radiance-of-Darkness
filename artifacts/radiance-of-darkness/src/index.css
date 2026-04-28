@@ -1,0 +1,556 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Cinzel', serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 240 15% 4%;
+  --foreground: 45 15% 88%;
+  --card: 240 20% 7%;
+  --card-foreground: 45 15% 88%;
+  --card-border: 240 20% 15%;
+  --popover: 240 20% 7%;
+  --popover-foreground: 45 15% 88%;
+  --popover-border: 240 20% 15%;
+  --primary: 42 55% 57%;
+  --primary-foreground: 240 15% 4%;
+  --secondary: 270 40% 12%;
+  --secondary-foreground: 45 15% 88%;
+  --muted: 240 15% 12%;
+  --muted-foreground: 240 10% 65%;
+  --accent: 220 50% 15%;
+  --accent-foreground: 45 15% 88%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 20% 15%;
+  --input: 240 20% 15%;
+  --ring: 42 55% 57%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * { @apply border-border; }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
+    scrollbar-color: hsl(var(--primary) / 0.5) hsl(var(--background));
+    scrollbar-width: thin;
+    cursor: default;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.3); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.6); }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-semibold tracking-wide;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 40px hsl(var(--primary) / 0.2);
+  }
+  .text-glow-strong {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.8), 0 0 30px hsl(var(--primary) / 0.5), 0 0 60px hsl(var(--primary) / 0.2);
+  }
+  .box-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.15), inset 0 0 20px hsl(var(--primary) / 0.05);
+  }
+  .box-glow-hover:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.3), inset 0 0 20px hsl(var(--primary) / 0.1);
+    border-color: hsl(var(--primary) / 0.5);
+  }
+  .glass-panel {
+    @apply bg-background/60 backdrop-blur-md border border-white/5;
+  }
+  .ornamental-divider {
+    @apply w-full h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent my-12 relative;
+  }
+  .ornamental-divider::after {
+    content: "✦";
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary font-display text-lg bg-background px-4;
+  }
+  .magic-card {
+    transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
+  }
+  .magic-card:hover {
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 25px hsl(var(--primary) / 0.2), 0 0 60px hsl(270 50% 30% / 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* ────────────────────── PARTICLE & GOLDEN DUST ─────────────────────── */
+@keyframes float {
+  0%   { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(20px) rotate(180deg); opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float linear infinite;
+}
+
+/* ────────────────────── FLOATING RUNES ─────────────────────────────── */
+@keyframes runeFloat {
+  0%   { transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);  opacity: 0; }
+  8%   { opacity: 0.25; }
+  92%  { opacity: 0.25; }
+  100% { transform: translateY(-90vh) translateX(15px) rotate(360deg) scale(0.6); opacity: 0; }
+}
+
+.rune-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: runeFloat linear infinite;
+  user-select: none;
+  font-family: 'Cinzel', serif;
+  color: hsl(var(--primary) / 0.35);
+  filter: drop-shadow(0 0 6px hsl(var(--primary) / 0.6));
+  line-height: 1;
+}
+
+/* ────────────────────── PURPLE WISPS ───────────────────────────────── */
+@keyframes wispFloat {
+  0%   { transform: translateY(0px) translateX(0px) scale(1);   opacity: 0; }
+  15%  { opacity: 0.12; }
+  85%  { opacity: 0.12; }
+  100% { transform: translateY(-70vh) translateX(-25px) scale(0.4); opacity: 0; }
+}
+
+.wisp-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, hsl(270 70% 60% / 0.5) 0%, transparent 70%);
+  animation: wispFloat ease-in-out infinite;
+  filter: blur(8px);
+}
+
+/* ────────────────────── TEXT SHIMMER ───────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)) 0%,
+    hsl(42 80% 80%) 30%,
+    hsl(var(--primary)) 60%,
+    hsl(42 80% 80%) 80%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* ────────────────────── MAGIC BORDER GLOW ──────────────────────────── */
+@keyframes borderGlow {
+  0%, 100% { box-shadow: 0 0 8px hsl(var(--primary) / 0.15), inset 0 0 8px hsl(var(--primary) / 0.05); }
+  50%       { box-shadow: 0 0 24px hsl(var(--primary) / 0.4), inset 0 0 12px hsl(var(--primary) / 0.1); }
+}
+
+.magic-border-glow {
+  animation: borderGlow 4s ease-in-out infinite;
+}
+
+/* ────────────────────── VIGNETTE PULSING ───────────────────────────── */
+@keyframes vignettePulse {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 0.85; }
+}
+
+.vignette-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+  z-index: 2;
+  animation: vignettePulse 10s ease-in-out infinite;
+}
+
+/* ────────────────────── NEBULA BACKGROUND ──────────────────────────── */
+@keyframes nebulaDrift {
+  0%   { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); }
+  33%  { transform: translateX(40px) translateY(-30px) rotate(120deg) scale(1.1); }
+  66%  { transform: translateX(-20px) translateY(20px) rotate(240deg) scale(0.9); }
+  100% { transform: translateX(0px) translateY(0px) rotate(360deg) scale(1); }
+}
+
+.nebula-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  animation: nebulaDrift ease-in-out infinite;
+  opacity: 0.06;
+}
+
+/* ────────────────────── STARDUST ────────────────────────────────────── */
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.4); }
+}
+
+.star-dot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+  pointer-events: none;
+  animation: starTwinkle ease-in-out infinite;
+  box-shadow: 0 0 4px hsl(var(--primary));
+}
+
+/* ────────────────────── SECTION REVEAL ─────────────────────────────── */
+.reveal-line {
+  position: relative;
+  overflow: hidden;
+}
+.reveal-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.6), transparent);
+  animation: shimmer 4s linear infinite;
+  background-size: 300% auto;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   PIXEL MODE — full-site 8-bit aesthetic that preserves the same layout.
+   Activated by adding `pixel-mode` class to <html>.
+   Uses ONLY Pixelify Sans (similar metrics to Inter/Cinzel) so text wrapping
+   and sizing stay identical to the normal mode. No font-size overrides.
+   ════════════════════════════════════════════════════════════════════════ */
+html.pixel-mode,
+html.pixel-mode body {
+  font-family: 'Pixelify Sans', 'Courier New', monospace !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  text-rendering: geometricPrecision !important;
+}
+
+html.pixel-mode *,
+html.pixel-mode *::before,
+html.pixel-mode *::after {
+  font-family: 'Pixelify Sans', 'Courier New', monospace !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: none !important;
+  font-smooth: never !important;
+  /* Disable blurred backdrops everywhere — blur is the antithesis of pixel art */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Body text gets weight bumped to 500 so Pixelify Sans is readable */
+html.pixel-mode body,
+html.pixel-mode p,
+html.pixel-mode span,
+html.pixel-mode li,
+html.pixel-mode a,
+html.pixel-mode label,
+html.pixel-mode input,
+html.pixel-mode textarea,
+html.pixel-mode button {
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Headings use a single crisp 8-bit drop shadow (no blur, no double offset
+   that creates a ghost effect at small sizes). Tight letter spacing keeps
+   the chunky pixel font readable. */
+html.pixel-mode h1,
+html.pixel-mode h2,
+html.pixel-mode h3,
+html.pixel-mode h4,
+html.pixel-mode h5,
+html.pixel-mode h6,
+html.pixel-mode .font-display {
+  font-family: 'Pixelify Sans', 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.65) !important;
+}
+
+/* The biggest hero titles get a chunkier single-pass shadow */
+html.pixel-mode h1.text-glow-strong,
+html.pixel-mode h1.text-shimmer,
+html.pixel-mode .text-5xl,
+html.pixel-mode .md\:text-5xl,
+html.pixel-mode .text-6xl,
+html.pixel-mode .md\:text-6xl,
+html.pixel-mode .text-7xl,
+html.pixel-mode .md\:text-7xl,
+html.pixel-mode .text-8xl,
+html.pixel-mode .md\:text-8xl {
+  text-shadow: 4px 4px 0 #000000 !important;
+}
+
+/* Home hero title — gradient + drop-shadow filter look messy under the pixel
+   font, so swap to a solid gold with a crisp pixel-art shadow stack. */
+html.pixel-mode .hero-gradient-title {
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #d9b86a !important;
+  color: #d9b86a !important;
+  filter: none !important;
+  text-shadow: 5px 5px 0 #000000 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Crisp pixel images — but NOT for the manga flipbook pages (those need
+   smooth interpolation, otherwise the line-art looks chunky and bad) and
+   NOT for the 3D book model (its lighting/spine textures rely on smooth
+   gradients that pixelation would destroy). */
+html.pixel-mode img,
+html.pixel-mode video,
+html.pixel-mode canvas {
+  image-rendering: pixelated !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+}
+html.pixel-mode .stf__block img,
+html.pixel-mode .book-model-3d img {
+  image-rendering: auto !important;
+  image-rendering: smooth !important;
+}
+
+/* Sharper, blockier borders globally */
+html.pixel-mode .rounded,
+html.pixel-mode .rounded-md,
+html.pixel-mode .rounded-lg,
+html.pixel-mode .rounded-xl,
+html.pixel-mode .rounded-2xl,
+html.pixel-mode .rounded-3xl,
+html.pixel-mode .rounded-full {
+  border-radius: 0 !important;
+}
+/* Exception: the round site logo stays round */
+html.pixel-mode header img[alt="Pixel Alchemists"] {
+  border-radius: 999px !important;
+}
+
+html.pixel-mode .text-glow,
+html.pixel-mode .text-glow-strong,
+html.pixel-mode .text-shimmer {
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.6) !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  color: hsl(var(--primary)) !important;
+  animation: none !important;
+  filter: none !important;
+}
+
+html.pixel-mode .box-glow {
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.4) !important;
+}
+
+/* Cards get a chunky 8-bit drop shadow + sharp border */
+html.pixel-mode .bg-card {
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.55) !important;
+  border-radius: 0 !important;
+}
+
+/* Buttons get a real pixel-art 3D block look (offset hard shadow that lifts
+   on hover, instead of a smooth glow). Excludes the toggle button itself
+   and dropdown menu items so their styles don't fight. */
+html.pixel-mode button:not(.pixel-toggle-btn):not([role="menuitem"]):not([role="tab"]) {
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.55) !important;
+  transition: transform 0.05s linear, box-shadow 0.05s linear !important;
+}
+html.pixel-mode button:not(.pixel-toggle-btn):not([role="menuitem"]):not([role="tab"]):hover {
+  transform: translate(1px, 1px) !important;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.55) !important;
+}
+html.pixel-mode button:not(.pixel-toggle-btn):not([role="menuitem"]):not([role="tab"]):active {
+  transform: translate(3px, 3px) !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.55) !important;
+}
+
+/* Disable smooth ambient blur effects */
+html.pixel-mode .nebula-blob {
+  filter: blur(0) !important;
+  opacity: 0.04 !important;
+}
+html.pixel-mode .wisp-particle {
+  filter: blur(0) !important;
+  opacity: 0.6 !important;
+}
+
+html.pixel-mode .vignette-overlay {
+  opacity: 0.55 !important;
+}
+
+/* Stronger, more visible scanline overlay for proper CRT feel */
+html.pixel-mode body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.22) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  opacity: 0.7;
+}
+
+/* Pixel-mode toggle button — proper retro 3D button regardless of state */
+.pixel-toggle-btn {
+  font-family: 'Press Start 2P', monospace;
+  letter-spacing: 0;
+  border: 2px solid hsl(var(--primary) / 0.6);
+  background: hsl(var(--card));
+  color: hsl(var(--primary));
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.5);
+  transition: transform 0.08s linear, box-shadow 0.08s linear, background 0.15s ease;
+}
+.pixel-toggle-btn:hover {
+  background: hsl(var(--primary) / 0.18);
+  border-color: hsl(var(--primary));
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.6);
+}
+.pixel-toggle-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.4);
+}
+.pixel-toggle-btn.active {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   Pixel-mode toggle TOAST (fullscreen centered banner)
+   Shown briefly whenever the user flips Pixel Mode on/off so the change
+   feels deliberate and discoverable.
+   ───────────────────────────────────────────────────────────────────── */
+.pixel-toast-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 30px;
+  font-family: 'Pixelify Sans', 'Press Start 2P', monospace;
+  font-size: clamp(1.1rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 4px solid #c9a85c;
+  background: rgba(8, 8, 14, 0.94);
+  color: #c9a85c;
+  box-shadow:
+    6px 6px 0 0 #000,
+    0 0 60px rgba(201, 168, 92, 0.45);
+  text-shadow: 2px 2px 0 #000;
+  image-rendering: pixelated;
+  border-radius: 0;
+}
+.pixel-toast-card.off {
+  border-color: #6e6e7a;
+  color: #c5c5d0;
+  box-shadow:
+    6px 6px 0 0 #000,
+    0 0 40px rgba(110, 110, 122, 0.35);
+}
+.pixel-toast-card .pixel-toast-icon {
+  font-size: 1.1em;
+  line-height: 1;
+  display: inline-block;
+}
+.pixel-toast-card.on .pixel-toast-icon { color: #f3d176; }
+.pixel-toast-card.off .pixel-toast-icon { color: #9c9caa; }
+
+/* ─────────────────────────────────────────────────────────────────────
+   PIXEL-MODE override for the Home hero CTA ("Entra nel Mondo")
+   The default button uses gradients + glow + wide tracking which look
+   broken under the chunky pixel font. We replace it with a flat,
+   gold-on-black 8-bit "command" button and a hard offset shadow.
+   ───────────────────────────────────────────────────────────────────── */
+html.pixel-mode .hero-cta-btn {
+  background: #c9a85c !important;
+  background-image: none !important;
+  color: #0a0a12 !important;
+  border: 3px solid #000 !important;
+  box-shadow: 4px 4px 0 0 #000 !important;
+  text-shadow: none !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 0 !important;
+  padding: 0.7rem 1.4rem !important;
+  height: auto !important;
+  font-size: clamp(0.95rem, 2.4vw, 1.2rem) !important;
+  transition: transform 0.08s linear, box-shadow 0.08s linear !important;
+}
+html.pixel-mode .hero-cta-btn:hover {
+  background: #e0bf72 !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 0 #000 !important;
+}
+html.pixel-mode .hero-cta-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0 0 #000 !important;
+}
+html.pixel-mode .hero-cta-btn svg {
+  color: #0a0a12;
+  width: 1.1em;
+  height: 1.1em;
+}
