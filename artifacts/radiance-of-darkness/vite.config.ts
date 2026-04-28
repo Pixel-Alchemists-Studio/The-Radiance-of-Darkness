@@ -27,7 +27,7 @@ if (!basePath) {
 }
 
 export default defineConfig({
-  base: '/The-Radiance-of-Darkness/',,
+  base: '/The-Radiance-of-Darkness/',
   plugins: [
     react(),
     tailwindcss(),
